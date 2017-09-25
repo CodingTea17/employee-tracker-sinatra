@@ -1,0 +1,15 @@
+<h1><%= @division.description %></h1>
+<ul>
+  <% @division.employees.each do |employee| %>
+    <li><a href="/employee/<%= employee.id %>"><%= employee.name %></a></li>
+  <% end %>
+</ul>
+<form action="/add_employee" method="post">
+  <input type="hidden" name="id" value="<%= @division.id %>">
+    <div class="form-group">
+      <label for="name">Enter an employee to add to this division</label>
+      <input type="text" name="name" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-info">Add</button>
+    <a href="/"><button type="button" class="btn btn-secondary">Return Home</button></a>
+</form>

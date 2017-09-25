@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-12">
+    <h1>Divisions in Papa Franz Inc.</h1>
+    <a href="/divisions/new">Add a Division</a>
+      <% @divisions.each do |divi| %>
+        <form action="/divisions/<%= divi.id %>/delete" method="post">
+          <p>
+            <input name="_method" type="hidden" value="delete"/>
+            <a href="/divisions/<%= divi.id %>"><button type="button" class="btn btn-info" style="width:200px;"><%= divi.description %></button></a>
+            <a href="/divisions/<%= divi.id %>/edit"><button type="button" class="btn btn-warning">Edit</button></a>
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </p>
+        </form>
+      <% end %>
+  </div>
+</div>
