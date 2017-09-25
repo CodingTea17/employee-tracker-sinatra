@@ -2,6 +2,7 @@
   <div class="col-12">
     <h1>Divisions in Papa Franz Inc.</h1>
     <a href="/divisions/new">Add a Division</a>
+    <% if @divisions.any? %>
       <% @divisions.each do |divi| %>
         <form action="/divisions/<%= divi.id %>/delete" method="post">
           <p>
@@ -12,5 +13,6 @@
           </p>
         </form>
       <% end %>
+    <% end %>
   </div>
 </div>

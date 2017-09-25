@@ -4,6 +4,7 @@ require 'sinatra/activerecord'
 also_reload 'lib/**/*.rb'
 require './lib/division'
 require './lib/employee'
+require './lib/project'
 require 'pg'
 
 get '/' do
@@ -41,8 +42,8 @@ get '/divisions/:id' do
 end
 
 post '/add_employee' do
-  Employee.create({:name => params['name'], :division_id => params["id"]})
-  redirect "/divisions/#{params["id"]}"
+  Employee.create({:name => params['name'], :project_id => params["id"]})
+  redirect "/projects/#{params["id"]}"
 end
 
 get '/employee/:id' do
@@ -51,12 +52,33 @@ get '/employee/:id' do
 end
 
 delete '/employee/:id/delete' do
-  division_id = Employee.find(params[:id]).division_id
+  project_id = Employee.find(params[:id]).project_id
   Employee.find(params[:id]).destroy
-  redirect "/divisions/#{division_id}"
+  redirect "/projects/#{project_id}"
 end
 
 patch '/employee/:id/edit' do
   Employee.find(params[:id]).update({:name => params["name"]})
-  redirect "/divisions/#{Employee.find(params[:id]).division_id}"
+  redirect "/projects/#{Employee.find(params[:id]).project_id}"
+end
+##########################PROJECTS###############################
+post '/add_project' do
+  Project.create({:name => params['name'], :division_id => params["id"]})
+  redirect "/divisions/#{params["id"]}"
+end
+
+get '/projects/:id' do
+  @project = Project.find(params[:id])
+  erb :project_info
+end
+
+delete '/projects/:id/delete' do
+  division_id = Project.find(params[:id]).division_id
+  Project.find(params[:id]).destroy
+  redirect "/divisions/#{division_id}"
+end
+
+patch '/projects/:id/edit' do
+  Project.find(params[:id]).update({:name => params["name"]})
+  redirect "/divisions/#{Project.find(params[:id]).division_id}"
 end
