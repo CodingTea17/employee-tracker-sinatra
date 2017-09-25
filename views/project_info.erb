@@ -1,0 +1,29 @@
+<form action="/projects/<%= @project.id %>/delete" method="post">
+    <input name="_method" type="hidden" value="delete"/>
+    <h1>
+      <%= @project.name %>
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </h1>
+</form>
+<form action="/projects/<%= @project.id %>/edit" method="post">
+  <input name="_method" type="hidden" value="patch"/>
+  <div class="form-group">
+    <label for="name">Enter a New Name:</label>
+    <input id="name" name="name" type="text" class="form-control" autofocus>
+  </div>
+  <button type="submit" class="btn btn-warning">Update</button>
+</form>
+<ul>
+  <% @project.employees.each do |employee| %>
+    <li><a href="/employee/<%= employee.id %>"><%= employee.name %></a></li>
+  <% end %>
+</ul>
+<form action="/add_employee" method="post">
+  <input type="hidden" name="id" value="<%= @project.id %>">
+    <div class="form-group">
+      <label for="name">Add a new employee to this project:</label>
+      <input type="text" name="name" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-info">Add</button>
+    <a href="/"><button type="button" class="btn btn-secondary">Return Home</button></a>
+</form>
